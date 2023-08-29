@@ -206,12 +206,16 @@ ssh-keygen -t ed25519 -C "lcondoriz@fi.uba.ar"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 ```
+-----------------------------------------------------------------------------
+## Compilar y debuggear en Visual studio code C/C++
+Combiene instalar la extensión `Makefile Tools` [MakefileTools]. Lo que hace es tomar el archivo make y usarlo para debugear y compilar.
 
+-----------------------------------------------------------------------------
 # Citas link
 - [bat]: <https://github.com/sharkdp/bat>
 - [ranger]: <https://github.com/ranger/ranger>
 - [ranger-devicoins]: <https://github.com/alexanderjeurissen/ranger_devicons>
 - [Nodejs]: <https://github.com/nodesource/distributions/blob/master/README.md#debinstall>
 - [Copilot]: <https://docs.github.com/en/copilot/getting-started-with-github-copilot?tool=neovim>
-
+- [MakefileTools]: <https://devblogs.microsoft.com/cppblog/now-announcing-makefile-support-in-visual-studio-code/>
 
