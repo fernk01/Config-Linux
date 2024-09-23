@@ -210,6 +210,67 @@ ssh-add ~/.ssh/id_ed25519
 ## Compilar y debuggear en Visual studio code C/C++
 Combiene instalar la extensión `Makefile Tools` [MakefileTools]. Lo que hace es tomar el archivo make y usarlo para debugear y compilar.
 
+# Update python
+
+Para actualizar Python en Ubuntu, puedes seguir estos pasos utilizando el PPA de Deadsnakes, que es una fuente confiable para obtener versiones más recientes de Python. Aquí te dejo una guía paso a paso:
+
+1. **Actualizar la lista de paquetes**:
+   ```bash
+   sudo apt update
+   ```
+
+2. **Instalar el paquete de soporte para añadir PPAs**:
+   ```bash
+   sudo apt install software-properties-common
+   ```
+
+3. **Añadir el PPA de Deadsnakes**:
+   ```bash
+   sudo add-apt-repository ppa:deadsnakes/ppa
+   sudo apt update
+   ```
+
+4. **Instalar la versión más reciente de Python (por ejemplo, Python 3.10)**:
+   ```bash
+   sudo apt install python3.10
+   ```
+
+5. **Actualizar las alternativas de Python (predeterminado)**:
+   ```bash
+   sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
+   sudo update-alternatives --config python3
+   ```
+
+6. **Verificar la versión instalada**:
+   ```bash
+   python3 --version
+   ```
+
+Estos pasos te permitirán instalar y configurar la nueva versión de Python en tu sistema. Si necesitas una versión específica diferente a la 3.10, simplemente reemplaza `python3.10` por la versión que desees instalar.
+
+## multiples versiones
+No te preocupes, seguir los pasos anteriores no causará problemas de superposición. En Ubuntu, puedes tener múltiples versiones de Python instaladas simultáneamente sin conflictos. Aquí te explico cómo funciona:
+
+1. **Múltiples versiones**: Al instalar una nueva versión de Python (por ejemplo, Python 3.10), no se eliminará la versión anterior (Python 3.8.10). Ambas versiones coexistirán en tu sistema.
+
+2. **Uso de `update-alternatives`**: El comando `update-alternatives` te permite configurar cuál versión de Python se utilizará por defecto cuando ejecutes `python3`. Sin embargo, siempre puedes especificar una versión particular ejecutando `python3.8` o `python3.10` directamente.
+
+3. **Verificación de versiones**:
+   ```bash
+   python3.8 --version
+   python3.10 --version
+   ```
+
+4. **Configuración de la versión por defecto**:
+   Si deseas cambiar la versión por defecto de `python3`, puedes usar:
+   ```bash
+   sudo update-alternatives --config python3
+   ```
+
+   Esto te permitirá seleccionar la versión de Python que deseas usar por defecto.
+
+En resumen, no tendrás problemas de superposición y podrás utilizar múltiples versiones de Python según tus necesidades. Si en algún momento necesitas usar una versión específica, simplemente especifica la versión en el comando.
+
 -----------------------------------------------------------------------------
 # Citas link
 - [bat]: <https://github.com/sharkdp/bat>
