@@ -1,71 +1,219 @@
-Git Guía rápida.
+# 1. `git status`
 
-## Crear repositorio
+Muestra el estado actual del repositorio.
 
-Sí ✅, puedes crear un repositorio en GitHub directamente desde la terminal usando Git o la GitHub CLI (gh).
-Te muestro ambas formas:
+Te dice:
 
-## 1️⃣ Usando solo Git (requiere crear el repo en GitHub antes)
-1. Este método es útil si ya creaste el repositorio vacío en GitHub desde la web.
-    ```bash
-    mkdir mi-proyecto
-    cd mi-proyecto
-    ```
-
-2. Inicializar repositorio local
-    ```bash
-    git init
-    ```
-
-.3 Agregar archivos
-    ```bash
-    echo "# Mi Proyecto" > README.md
-    git add .
-    git commit -m "Primer commit"
-    ```
-
-
-4. Conectar con el repositorio remoto (URL HTTPS o SSH)
-    ```bash
-    git remote add origin https://github.com/usuario/mi-proyecto.git
-    ```
-
-5. Subir cambios
-    ```bash
-    git push -u origin main
-    ```
-
-
-
-## 2️⃣ Usando GitHub CLI (crea el repo desde la terminal)
-1. Primero instala la CLI oficial: https://cli.github.com/
-2. Luego inicia sesión:
-    ```bash
-    gh auth login
-    ```
-3. Crear el repositorio y subirlo:
-    ```bash
-    mkdir mi-proyecto
-    cd mi-proyecto
-    ```
-
-4. Inicializar y crear repo en GitHub
-    ```bash
-    git init
-    gh repo create mi-proyecto --public --source=. --remote=origin --push
-    ```
-
-    Esto:
-
-    Crea el repositorio en GitHub.
-    Lo enlaza como remoto.
-    Sube el contenido automáticamente.
+* qué archivos cambiaron,
+* cuáles están listos para guardar,
+* cuáles no están siendo seguidos por Git.
 
 ```bash
-
+git status
 ```
 
-# Deshacer un Commit en Git
+👉 Es probablemente el comando que más se usa.
+
+---
+
+# 2. `git add`
+
+Agrega archivos al área de preparación (“staging”).
+
+```bash
+git add archivo.txt
+```
+
+Agregar todos los cambios:
+
+```bash
+git add .
+```
+
+👉 Sirve para decirle a Git:
+“estos cambios quiero guardarlos en el próximo commit”.
+
+---
+
+# 3. `git commit`
+
+Guarda una versión de los cambios.
+
+```bash
+git commit -m "Agrega login de usuarios"
+```
+
+👉 Un commit es como una “foto” del proyecto.
+
+---
+
+# 4. `git push`
+
+Sube tus cambios al repositorio remoto (por ejemplo GitHub).
+
+```bash
+git push
+```
+
+O especificando rama:
+
+```bash
+git push origin main
+```
+
+👉 Envía tus commits a internet/equipo.
+
+---
+
+# 5. `git pull`
+
+Descarga cambios del repositorio remoto y los mezcla con tu rama actual.
+
+```bash
+git pull
+```
+
+👉 Actualiza tu proyecto local.
+
+---
+
+# 6. `git clone`
+
+Copia un repositorio remoto a tu computadora.
+
+```bash
+git clone https://github.com/usuario/proyecto.git
+```
+
+👉 Se usa al empezar a trabajar en un proyecto existente.
+
+---
+
+# 7. `git branch`
+
+Muestra o crea ramas.
+
+Ver ramas:
+
+```bash
+git branch
+```
+
+Crear rama:
+
+```bash
+git branch nueva-funcion
+```
+
+👉 Las ramas permiten trabajar sin romper el proyecto principal.
+
+---
+
+# 8. `git checkout`
+
+Cambiar de rama.
+
+```bash
+git checkout develop
+```
+
+Crear y cambiar:
+
+```bash
+git checkout -b nueva-rama
+```
+
+👉 Muy usado antes de `git switch`.
+
+---
+
+# 9. `git switch`
+
+Forma moderna de cambiar ramas.
+
+```bash
+git switch develop
+```
+
+Crear y cambiar:
+
+```bash
+git switch -c feature-login
+```
+
+👉 Más claro y recomendado actualmente.
+
+---
+
+# 10. `git merge`
+
+Fusiona ramas.
+
+```bash
+git merge develop
+```
+
+👉 Une cambios de otra rama.
+
+---
+
+# 11. `git log`
+
+Muestra el historial de commits.
+
+```bash
+git log
+```
+
+Versión corta:
+
+```bash
+git log --oneline
+```
+
+👉 Sirve para revisar historial.
+
+---
+
+# 12. `git diff`
+
+Muestra diferencias entre cambios.
+
+```bash
+git diff
+```
+
+👉 Te deja ver exactamente qué modificaste.
+
+---
+
+# 13. `git fetch`
+
+Descarga cambios remotos SIN mezclarlos.
+
+```bash
+git fetch
+```
+
+👉 Más seguro que `pull` en algunos flujos de trabajo.
+
+---
+
+# 14. `git reset`
+
+Deshace cambios o commits.
+
+Ejemplo simple:
+
+```bash
+git reset archivo.txt
+```
+
+👉 Muy potente y peligroso si no se entiende bien.
+
+
+
+## 14.1. Deshacer un Commit en Git
 
 En Git, puedes deshacer un commit dependiendo de si deseas conservar los cambios o descartarlos por completo. A continuación, se explican las opciones más comunes para lograrlo.
 
@@ -113,229 +261,174 @@ En Git, puedes deshacer un commit dependiendo de si deseas conservar los cambios
 
     Siempre verifica tu historial con git log antes de ejecutar comandos destructivos como --hard.
 
+5. Aplicar cambios al repositorio remoto después de un reset
 
-# Buenos commit
+    Si necesitas actualizar el repositorio remoto después de un reset, puedes usar:
+    ```bash
+    git push --force origin nombre-de-la-rama
+    ```
 
-Aquí tienes un resumen consolidado de **buenas prácticas para hacer commits claros, entendibles y estándares**, basado tanto en la guía de Commitizen (“Writing commits”) como en la especificación Conventional Commits y otras fuentes. Puedes usarlo como hoja de referencia para ti o para que tu equipo lo adopte.
+    Ten cuidado al usar --force, ya que puede sobrescribir el historial compartido con otros colaboradores. Es recomendable comunicar cualquier cambio importante a tu equipo antes de forzar un push.
 
 ---
 
-## ✅ Formato recomendado
+# 15. `git stash`
 
-Según Conventional Commits la estructura general es:
+Guarda cambios temporales sin hacer commit.
 
+```bash
+git stash
 ```
-<type>[optional scope]: <short description>
+- `show -p` para ver qué guardaste.
+- `list` para ver todos los stashes guardados.
 
-[optional body]
+Recuperar y borrar stash:
 
-[optional footer(s)]
-```
-
-([conventionalcommits.org][1])
-Donde:
-
-* `type` es obligatorio (por ejemplo: `feat`, `fix`, `docs`, etc.). ([Baeldung on Kotlin][2])
-* `scope` es opcional, puesto entre paréntesis, para indicar el área afectada (por ejemplo: `(auth)`, `(api)`) ([Medium][3])
-* `short description` debe ser breve, en forma imperativa (“Add”, “Fix”, etc.) ([commitizen-tools.github.io][4])
-* `body` (opcional): explica *por qué* del cambio, contexto adicional. ([blog.shakiltech.com][5])
-* `footer(s)` (opcional): referencias a issues, breaking changes, etc. Por ejemplo `BREAKING CHANGE: …` ([vishnuprasadkuntar.me][6])
-
-También la guía de Commitizen refuerza estas ideas: “Keep the message short”, “Talk imperative”, “Your future self & your colleagues” deben entenderlo. ([commitizen-tools.github.io][4])
-
----
-
-## 🧩 Tipos comunes de commits
-
-Algunos tipos muy usados y recomendados:
-
-* `feat`: introduce una **nueva funcionalidad**. ([conventionalcommits.org][1])
-* `fix`: corrige un bug. ([codingeasypeasy.com][7])
-* `docs`: cambios en la documentación. ([vishnuprasadkuntar.me][6])
-* `style`: formato, estilo de código, sin cambio de lógica. ([vishnuprasadkuntar.me][6])
-* `refactor`: cambio de código que no agrega funcionalidad ni corrige un bug, pero mejora estructura. ([Medium][3])
-* `perf`: mejoras de rendimiento. ([vishnuprasadkuntar.me][6])
-* `test`: añadir o modificar tests. ([vishnuprasadkuntar.me][6])
-* `chore`: tareas de mantenimiento (dependencias, build, etc.). ([codingeasypeasy.com][7])
-
----
-
-## 📏 Buenas prácticas de redacción
-
-Aquí van reglas muy útiles para que los commits sean claros y útiles:
-
-* Usa **tiempo imperativo** (“Add feature”, “Fix bug”, no “Added” o “Fixed”). ([GitKraken][8])
-* Limita la línea de título (el header) a ~50 caracteres para máxima legibilidad. ([Developer handbook][9])
-* Deja una línea en blanco entre el título y el cuerpo. ([Developer handbook][9])
-* No termines el título con un punto (“.”). ([Developer handbook][9])
-* Si escribes cuerpo, envuelve líneas a ~72 caracteres para que se vea bien en terminales. ([Developer handbook][9])
-* Mantén los commits **atómicos**: que representen un solo cambio lógico, no múltiples cosas mezcladas. ([codingeasypeasy.com][7])
-* En el cuerpo o footer explica *por qué* se hizo el cambio, no solo *qué* se hizo. ([algocademy.com][10])
-* Si el cambio rompe compatibilidad, marca con `BREAKING CHANGE:` o añade `!` después del tipo (ej: `feat!: …`). ([vishnuprasadkuntar.me][6])
-* Referencia issues o tickets si aplica (ej: “Fixes #123”). ([blog.shakiltech.com][5])
-
----
-
-## 🎯 Qué evitar
-
-* Mensajes genéricos tipo “update code”, “fixed stuff”, “changes”. Evita vaguedades. ([Medium][11])
-* Mezclar múltiples cambios no relacionados en un solo commit.
-* Olvidar marcar cambios que rompen compatibilidad.
-* Escribir título muy largo o cuerpo que sea demasiado prolijo para lo que el cambio merece.
-* No usar estándar alguno (aunque tener uno ya mejora mucho).
-
----
-
-## 📌 Lista de verificación rápida antes de hacer commit
-
-Puedes usar este checklist para tus commits:
-
-* [ ] ¿El header sigue el formato `<type>(scope): description`?
-* [ ] ¿El tipo representa bien la naturaleza del cambio? (`feat`, `fix`, etc.)
-* [ ] ¿El título está en imperativo, sin punto al final, < ~50 caracteres?
-* [ ] ¿Si hay cuerpo, está separado por línea en blanco del header, envuelto aprox. a 72 caracteres?
-* [ ] ¿El commit es atómico (un solo objetivo lógico)?
-* [ ] ¿Se explica *por qué* y/o *impacto* del cambio?
-* [ ] ¿Hay referencia a issue, o marca de breaking change si aplica?
-* [ ] ¿No se mezclan cambios que deberían ser varios commits?
-
----
-
-Si quieres, puedo armarte **una plantilla (snippet)** que puedas usar en tu editor (VS Code, Vim, etc.) para facilitar que todos los commits sigan este estándar. ¿Te interesa que lo haga?
-
-[1]: https://www.conventionalcommits.org/en/v1.0.0-beta/?utm_source=chatgpt.com "Conventional Commits"
-[2]: https://www.baeldung.com/ops/git-commit-messages?utm_source=chatgpt.com "Best Practices for Git Commit Message | Baeldung on Ops"
-[3]: https://medium.com/%40danendraclever24/a-guide-to-conventional-git-commits-best-practices-for-clear-and-structured-version-control-d3a9e77342bb?utm_source=chatgpt.com "A Guide to Conventional Git Commits: Best Practices for Clear and Structured Version Control | by Danendra Clevero Ananda | Medium"
-[4]: https://commitizen-tools.github.io/commitizen/tutorials/writing_commits/ "Writing commits - Commitizen"
-[5]: https://blog.shakiltech.com/conventional-commits/?utm_source=chatgpt.com "Conventional Commits Simplified: The Ultimate Guide To Better Versioning And Collaboration - Shakil's Blog"
-[6]: https://vishnuprasadkuntar.me/posts/git-commit-best-practices?utm_source=chatgpt.com "Vishnu Prasad K | Full Stack Developer"
-[7]: https://www.codingeasypeasy.com/blog/mastering-git-commit-best-practices-tips-and-tricks-for-effective-version-control?utm_source=chatgpt.com "Mastering Git Commit: Best Practices, Tips, and Tricks for Effective Version Control | CodingEasyPeasy"
-[8]: https://www.gitkraken.com/learn/git/best-practices/git-commit-message?utm_source=chatgpt.com "How to Write a Good Git Commit Message | Git Best Practices"
-[9]: https://handbook.nethserver.org/commit_messages/?utm_source=chatgpt.com "Commit Messages Style Guide | Developer handbook"
-[10]: https://algocademy.com/blog/how-to-write-good-commit-messages-in-git-a-comprehensive-guide/?utm_source=chatgpt.com "How to Write Good Commit Messages in Git: A Comprehensive Guide – AlgoCademy Blog"
-[11]: https://medium.com/%40sharmaakhil.work/git-commit-messages-101-from-messy-to-meaningful-with-conventional-commits-5424781fbc33?utm_source=chatgpt.com "Git Commit Messages 101: From Messy to Meaningful with Conventional Commits | by sharma-akhil | Sep, 2025 | Medium"
-
-Perfecto. Te voy a armar un **snippet de plantilla para commits** siguiendo las buenas prácticas de Commitizen/Conventional Commits, y además ejemplos **correctos** y **malos** para que lo veas claro.
-
----
-
-## 📝 Plantilla para commits (snippet)
-
-```text
-<type>(<scope>): <short description>
-
-[Optional body: explain *why* the change was made, context, or implementation details.
-Wrap lines at ~72 characters for readability.]
-
-[Optional footer(s): issues, breaking changes, etc.]
+```bash
+git stash pop
 ```
 
-**Explicación de cada parte:**
+Recuperar SIN borrar stash:
 
-* `type`: tipo de commit (feat, fix, docs, style, refactor, test, chore, perf).
-* `scope`: área afectada del código (ej: auth, api, ui, db). Opcional.
-* `short description`: título breve, en **imperativo**, <50 caracteres, sin punto final.
-* `body`: explica el *por qué*, no solo el *qué*. Opcional.
-* `footer`: referencias a issues, tickets o breaking changes. Opcional.
+```bash
+git stash apply
+```
+
+👉 Útil cuando necesitás cambiar de rama rápido.
+
+## 15.1. NO guarda archivos nuevos por defecto
+```bash
+git stash -u
+```
+---
+
+```bash
+git stash --include-untracked
+```
+
+Eso incluye:
+- archivos nuevos,
+- carpetas nuevas,
+- archivos no trackeados.
 
 ---
 
-## ✅ Ejemplos CORRECTOS
+# 16. `git rebase`
 
-1. **Funcionalidad nueva**
+Reorganiza commits o actualiza una rama.
 
-```text
-feat(auth): add JWT authentication support
-
-Add JWT-based authentication to the login system. This allows secure
-user sessions and reduces reliance on server-side sessions.
-
-Closes #42
+```bash
+git rebase main
 ```
 
-2. **Corrección de bug**
+👉 Muy usado en equipos avanzados.
 
-```text
-fix(api): handle null pointer in user endpoint
+---
 
-Previously, GET /users would crash when no users were found.
-Added null checks and appropriate 404 response.
-```
+# 17. `git rm`
 
-3. **Documentación**
+Eliminar archivos usando Git.
 
-```text
-docs(readme): update installation instructions
-
-Added steps for setting up the project on Windows and MacOS.
-```
-
-4. **Refactor sin cambiar funcionalidad**
-
-```text
-refactor(database): optimize query builder
-
-Rewrote query builder to reduce redundant SQL joins.
-No change in output or functionality.
-```
-
-5. **Breaking change**
-
-```text
-feat(auth)!: switch password hashing to bcrypt
-
-Old SHA1 hashes are no longer supported. Users must reset their
-passwords to log in.
-
-BREAKING CHANGE: Password hashing algorithm changed.
+```bash
+git rm archivo.txt
 ```
 
 ---
 
-## ❌ Ejemplos INCORRECTOS
+# 18. `git mv`
 
-1. Mensaje vago
+Mover o renombrar archivos.
 
-```text
-update code
+```bash
+git mv viejo.txt nuevo.txt
 ```
-
-2. Mensaje demasiado largo o sin estructura
-
-```text
-I fixed a bunch of things in the authentication system and also changed
-some code in the user service to make it work with the new database.
-```
-
-3. Mal tiempo verbal
-
-```text
-Added login feature to auth system.
-```
-
-4. Mezcla de múltiples cambios
-
-```text
-fix bug in api and add JWT authentication
-```
-
-*(Está mezclando bugfix y feature; deberían ser dos commits distintos.)*
-
-5. Breaking change no indicado
-
-```text
-feat(auth): switch password hashing to bcrypt
-```
-
-*(Falta `!` o `BREAKING CHANGE:` en el footer.)*
 
 ---
 
-💡 **Tip rápido:**
-Siempre pregúntate: “Si alguien viera solo este commit en el futuro, ¿entiende qué se cambió, por qué y si rompe algo?” Si la respuesta es no, mejora tu mensaje.
+# 19. `git remote`
+
+Gestiona repositorios remotos.
+
+Ver remotos:
+
+```bash
+git remote -v
+```
+
+Agregar remoto:
+
+```bash
+git remote add origin URL
+```
 
 ---
 
-Si quieres, puedo hacer **una versión lista para copiar/pegar en VS Code** como snippet real que te auto-complete el commit y te guíe para llenarlo correctamente. Esto hace que nunca olvides el formato.
+# 20. `git init`
 
+Inicializa un repositorio Git nuevo.
 
+```bash
+git init
+```
+
+👉 Convierte una carpeta común en un proyecto Git.
+
+---
+
+# Flujo típico de trabajo
+
+Normalmente el ciclo diario es:
+
+```bash
+git pull
+git status
+git add .
+git commit -m "mensaje"
+git push
+```
+
+---
+
+# Los 10 comandos que realmente usa la mayoría
+
+Según experiencia común de desarrolladores y discusiones de comunidades técnicas, los más usados suelen ser:
+
+1. `git status`
+2. `git add`
+3. `git commit`
+4. `git push`
+5. `git pull`
+6. `git branch`
+7. `git checkout` / `git switch`
+8. `git merge`
+9. `git log`
+10. `git clone`
+
+([Hostinger][1])
+
+---
+
+# Consejo importante
+
+No hace falta memorizar los más de 150 comandos de Git.
+
+Con dominar:
+
+* `status`
+* `add`
+* `commit`
+* `push`
+* `pull`
+* `branch`
+* `checkout/switch`
+* `merge`
+
+ya podés trabajar profesionalmente en la mayoría de proyectos. ([Reddit][2])
+
+---
+
+## Recursos útiles
+
+* [Documentación oficial de Git](https://git-scm.com/doc?utm_source=chatgpt.com)
+* [GitHub Docs](https://docs.github.com/es?utm_source=chatgpt.com)
+* [Tutorial de Atlassian Git](https://www.atlassian.com/es/git/tutorials?utm_source=chatgpt.com)
